@@ -1,0 +1,11 @@
+--Crea una carpeta para el laboratorio y dentro de la misma crea un archivo llamado servidor.js. [x]
+--Inicializa un proyecto de npm usando el comando npm init.[x]
+--Instalar el paquete 'chalk' con npm, asegúrate de utilizar la versión 4.1.2. Ejecutando el siguiente comando: npm i chalk@4.1.2[x]
+--Inicializa un repositorio usando el comando git init.[x]
+--Usando require obtener el módulo nativo de node de http.
+--Crea las constantes para el host que será el localhost y para el puerto que será el 8000 o el 8080.
+--Crea un listener para tu servidor como se realizó en clase, este listener debe responder con tu nombre y un mensaje en formato JSON.
+--Crea el servidor usando el módulo de http.
+--Levanta el servidor usando la función listen e imprime un mensaje por consola con la ruta incluyendo host y el puerto donde está escuchando el servidor, implementa chalk para que este mensaje sea de color verde.
+--Ejecuta con node tu servidor y prueba que todo funcione correctamente.
+--Sube tu proyecto a un repositorio de github y comparte el enlace 😉.
