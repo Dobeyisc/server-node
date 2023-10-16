@@ -1,39 +1,38 @@
-const http = require('http');
-const nodemon = require('nodemon');
+const express = require("express");
+const app = express();
+
+const listViewRouter = require('./list-view-router');
+const listEditRouter = require('./list-edit-router');
 
 // Arreglo de tareas con objetos
-const tareas = [
-  { id: 1, descripcion: 'Sacar al perro', completado: true },
-  { id: 2, descripcion: 'lavar ropa, hacer aseo, y comida', completado: true },
-  { id: 3, descripcion: 'Escribir código', completado: false },
+const task = [
+  { id: 1, descripcion: "Sacar al perro", complete: true },
+  { id: 2, descripcion: "lavar ropa, hacer aseo, y comida", complete: true },
+  { id: 3, descripcion: "Escribir código", complete: false },
 ];
 
-const servidor = http.createServer((req, res) => {
-  if (req.method === 'GET' && req.url === '/tareas') {
-    // Configura el encabezado de respuesta para JSON
-    res.setHeader('Content-Type', 'application/json');
-    
-    // Envía el arreglo de tareas como JSON
-    res.end(JSON.stringify(tareas));
-  } else {
-    // Maneja rutas no válidas
-    res.statusCode = 404;
-    res.end('Ruta no encontrada');
-  }
+// Configura el enrutador para las vistas
+app.use('/list-view', listViewRouter);
+
+// Configura el enrutador para la edición
+app.use('/list-edit', listEditRouter);
+
+// Configura una ruta para obtener todas las tareas
+app.get("/task", (req, res) => {
+  // Configura el encabezado de respuesta para JSON
+  res.setHeader("Content-Type", "application/json");
+
+  // Envía el arreglo de tareas como JSON
+  res.json(task);
+});
+
+// Configura una ruta por defecto para manejar rutas no válidas
+app.use((req, res) => {
+  res.status(404).send("Ruta no encontrada");
 });
 
 // Inicia el servidor en el puerto 3000
-servidor.listen(3000, () => {
-  console.log('El servidor está escuchando en http://localhost:3000/');
-});
-
-// Configura nodemon para reiniciar automáticamente el servidor al hacer cambios en el código
-nodemon({
-  script: 'servidor.js',
-  ext: 'js',
-  watch: '.'
-});
-
-nodemon.on('restart', () => {
-  console.log('El servidor se ha reiniciado debido a cambios en el código.');
+const port = 3000;
+app.listen(port, () => {
+  console.log(`El servidor está escuchando en http://localhost:${port}/`);
 });
